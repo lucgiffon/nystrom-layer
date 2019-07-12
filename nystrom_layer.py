@@ -8,7 +8,7 @@ import keras
 import numpy as np
 from keras.datasets import cifar10
 from keras.models import Sequential, Model
-from keras.layers import Dense, BatchNormalization, Flatten, Lambda, Input, Lambda, concatenate, Activation
+from keras.layers import Dense, BatchNormalization, Flatten, Input, Lambda, concatenate, Activation
 from keras.layers import Conv2D, MaxPooling2D
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
