@@ -20,3 +20,10 @@ used while writing this simple example
 - `nystrom_layer.py`: the minimal working example that you can just execute as it is.
 
 - `keras_kernel_functions.py`: some common kernel functions implemented in keras.
+
+## Reference
+
+*Deep Networks with Adaptive-Nystrom Approximation - Luc Giffon, Stephane Ayache, Thierry Artieres and Hachem Kadri*
+    
+[Author website](https://pageperso.lis-lab.fr/~luc.giffon/) - [Team website](https://qarma.lis-lab.fr)
+
