@@ -1,3 +1,9 @@
+"""
+Simple script that shows how a nystrom layer should be implemented.
+
+This doesn't aim at giving good results, just to show a simple implementation of the Nyström layer in a convolutional neural network.
+"""
+
 import keras
 import numpy as np
 from keras.datasets import cifar10
