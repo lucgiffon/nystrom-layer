@@ -2,6 +2,9 @@
 
 Minimum working example of the Nystrom Layer implementation.
 
+This doesn't aim at giving good results, just to show a simple implementation of the Nyström layer in a convolutional neural network.
+
+
 ## Requirements
 
 Those requirements versions may not be absolutely necessary but they are the versions
