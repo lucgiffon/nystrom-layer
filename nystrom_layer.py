@@ -10,7 +10,18 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras_kernel_functions import keras_linear_kernel
 
 
-def datagen_fixed_batch_size(x, y, x_sub=None, p_datagen=ImageDataGenerator()):
+def datagen_fixed_batch_size(x, y, batch_size, x_sub=None, p_datagen=ImageDataGenerator()):
+    """
+    Wrap a data generator so that:
+     - it always output batches of the same size
+     - it gives a subsample along with each batch
+
+    :param x: observation data
+    :param y: label data
+    :param x_sub: list of base of subsample (each base must be of size batch_size)
+    :param p_datagen: the initial data generator to wrap
+    :return:
+    """
     if x_sub is None:
         x_sub = []
     for x_batch, y_batch in p_datagen.flow(x, y, batch_size=batch_size):
@@ -59,6 +70,8 @@ def init_number_subsample_bases(nys_size, batch_size):
         return quotient + 1, batch_size - remaining
 
 if __name__ == "__main__":
+    # model meta parameters
+    # ---------------------
     batch_size = 128
     epochs = 1
     num_classes = 10
@@ -126,11 +139,15 @@ if __name__ == "__main__":
     # weight matrix of the nystrom layer
     input_classifier = Dense(nys_size, use_bias=False, activation='linear')(kernel_vector) # metric matrix of the Nyström layer
 
+    # final softmax classification layer
+    # ----------------------------------
     classif = Dense(num_classes, activation="softmax")(input_classifier)
 
+    # finalization of model, compilation and training
+    # -----------------------------------------------
     model = Model([input_x] + input_repr_subsample, [classif])
     adam = Adam(lr=.1)
     model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
-    model.fit_generator(datagen_fixed_batch_size(x_train, y_train, list_subsample_bases, datagen),
+    model.fit_generator(datagen_fixed_batch_size(x_train, y_train, batch_size, list_subsample_bases, datagen),
                         steps_per_epoch=int(x_train.shape[0] / batch_size),
                         epochs=epochs)
